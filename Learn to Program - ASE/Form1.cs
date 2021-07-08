@@ -317,7 +317,10 @@ namespace Learn_to_Program___ASE
 
         private void clearToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            
+            Canvas.xPos = 0;
+            Canvas.yPos = 0;
+            Canvas.P1.Color = System.Drawing.Color.Black;
+            Console.WriteLine("Pen Reset");
 
 
         }
@@ -330,7 +333,17 @@ namespace Learn_to_Program___ASE
         private void imageToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            
+            SaveFileDialog saveImage1 = new SaveFileDialog();
+
+
+            saveImage1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            saveImage1.DefaultExt = "*.tif";
+            saveImage1.Filter = "TIFF Files|*.tif";
+
+            if (saveImage1.ShowDialog() == DialogResult.OK)
+                OutputBitmap.Save(saveImage1.FileName);
+
+            //string path = saveImage1.FileName;
 
 
         }
@@ -339,14 +352,37 @@ namespace Learn_to_Program___ASE
 
         private void codeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            SaveFileDialog saveFile1 = new SaveFileDialog();
+
+            saveFile1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            saveFile1.DefaultExt = "*.txt";
+            saveFile1.Filter = "txt Files|*.txt";
+
+
+            if (saveFile1.ShowDialog() == DialogResult.OK)
+                commandbox.SaveFile(saveFile1.FileName, RichTextBoxStreamType.PlainText);
 
         }
 
         private void loadToolStripMenuItem1_Click(object sender, EventArgs e)
         {
 
-            
+            OpenFileDialog openFile1 = new OpenFileDialog();
+
+            openFile1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            openFile1.DefaultExt = "*.txt";
+            openFile1.Filter = "txt Files|*.txt";
+
+            if (openFile1.ShowDialog() == DialogResult.OK)
+                commandbox.LoadFile(openFile1.FileName, RichTextBoxStreamType.PlainText);
+
+            commandline.Text = ""; //clears text from command line
+            errorBox.Text = "";
+            MyCanvas.Clear(Canvas.sizec);
+            Canvas.xPos = 0;
+            Canvas.yPos = 0;
+            Canvas.P1.Color = System.Drawing.Color.Black;
+            Refresh();//refresh display
         }
 
         private void imageToolStripMenuItem1_Click(object sender, EventArgs e)
