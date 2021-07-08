@@ -149,6 +149,15 @@ namespace Learn_to_Program___ASE
 
         }
 
+
+
+
+
+
+
+
+
+
         private void run_button(object sender, EventArgs e)
         {
             MyCanvas.Clear(Canvas.sizec);
@@ -157,8 +166,11 @@ namespace Learn_to_Program___ASE
             int lineno = 0;
             int loopline = 0;
             int loop = 0;
-            string inputcmd = "poo";
-            string inputval = "poo";
+            int whileint = 0;
+            char whilecmd = '+';
+            int whileval = 0;
+            string inputcmd = "empty";
+            string inputval = "empty";
             int inputvalparsed = 0;
             string commandinit = commandbox.Text.Trim().ToLower();
             string[] lines = commandinit.Split('\n');
@@ -174,118 +186,163 @@ namespace Learn_to_Program___ASE
 
                 if (command[0].Equals("moveto") == true)
                 {
+                    if (param != 3)
+                    {
+                        if (!string.IsNullOrWhiteSpace(errorBox.Text))
+                        { errorBox.AppendText("\r\n" + "Line " + (lineno + 1) + " - Incorrect Parameters for moveTo command"); }
+                        else
+                        { errorBox.Text = "Line " + (lineno + 1) + " - Incorrect Parameters for moveTo command"; }
+                    }
+                    else
+                    {
+                        if (!Int32.TryParse(command[1], out positionx)) ; //translate string to int                    
+                        if (!Int32.TryParse(command[2], out positiony)) ;
 
-                    if (!Int32.TryParse(command[1], out positionx)) ; //translate string to int                    
-                    if (!Int32.TryParse(command[2], out positiony)) ;
-
-                    Canvas.xPos = positionx;
-                    Canvas.yPos = positiony;
-                    Console.WriteLine("COMMAND - PEN MOVED");
-
+                        Canvas.xPos = positionx;
+                        Canvas.yPos = positiony;
+                        Console.WriteLine("COMMAND - PEN MOVED");
+                    }
                 }
 
 
                 else if (command[0].Equals("drawto") == true || command[0].Equals("draw") == true)
                 {
-                    if (!Int32.TryParse(command[1], out positionx)) ; //translate string to int
-                    if (!Int32.TryParse(command[2], out positiony)) ;
-
-                    Canvas.toX = positionx;
-                    Canvas.toY = positiony;
-                    MyCanvas.DrawLine(Canvas.toX, Canvas.toY);
-                    Refresh();//refresh display
-                    Console.WriteLine("COMMAND - LINE DRAWN");
-
-                }
-                else if (command[0].Equals("circle") == true)
-                {
-                    if (command[1].Equals(inputcmd) == true)
+                    if (param != 3)
                     {
-                        //if (!Int32.TryParse(inputval, out positionshape)) ;
-                        positionshape = inputvalparsed;
-                        Canvas.sizes = positionshape;
-                        MyCanvas.DrawCircle(Canvas.sizes);
-                        Refresh();//refresh display
-                        Console.WriteLine("COMMAND - CIRCLE DRAWN");
+                        if (!string.IsNullOrWhiteSpace(errorBox.Text))
+                        { errorBox.AppendText("\r\n" + "Line " + (lineno + 1) + " - Incorrect Parameters for drawTo command"); }
+                        else
+                        { errorBox.Text = "Line " + (lineno + 1) + " - Incorrect Parameters for drawTo command"; }
                     }
                     else
                     {
-                        long number1 = 0;
-                        bool canConvert = long.TryParse(command[1], out number1);
-                        if (canConvert == true)
-                        {
-                            if (!Int32.TryParse(command[1], out positionshape)) ; //translate string to int
+                        if (!Int32.TryParse(command[1], out positionx)) ; //translate string to int
+                        if (!Int32.TryParse(command[2], out positiony)) ;
 
+                        Canvas.toX = positionx;
+                        Canvas.toY = positiony;
+                        MyCanvas.DrawLine(Canvas.toX, Canvas.toY);
+                        Refresh();//refresh display
+                        Console.WriteLine("COMMAND - LINE DRAWN");
+                    }
+                }
+                else if (command[0].Equals("circle") == true)
+                {
+                    if (param != 2)
+                    {
+                        if (!string.IsNullOrWhiteSpace(errorBox.Text))
+                        { errorBox.AppendText("\r\n" + "Line " + (lineno + 1) + " - Incorrect Parameters for circle command"); }
+                        else
+                        { errorBox.Text = "Line " + (lineno + 1) + " - Incorrect Parameters for circle command"; }
+                    }
+                    else
+                    {
+                        if (command[1].Equals(inputcmd) == true)
+                        {
+                            //if (!Int32.TryParse(inputval, out positionshape)) ;
+                            positionshape = inputvalparsed;
                             Canvas.sizes = positionshape;
                             MyCanvas.DrawCircle(Canvas.sizes);
                             Refresh();//refresh display
                             Console.WriteLine("COMMAND - CIRCLE DRAWN");
+                            errorBox.AppendText("\r\n" + "circle");
                         }
                         else
                         {
-                            if (!string.IsNullOrWhiteSpace(errorBox.Text))
-                            { errorBox.AppendText("\r\n" + "Line " + (lineno + 1) + " - Incorrect Parameters for Circle"); }
+                            long number1 = 0;
+                            bool canConvert = long.TryParse(command[1], out number1);
+                            if (canConvert == true)
+                            {
+                                if (!Int32.TryParse(command[1], out positionshape)) ; //translate string to int
+
+                                Canvas.sizes = positionshape;
+                                MyCanvas.DrawCircle(Canvas.sizes);
+                                Refresh();//refresh display
+                                Console.WriteLine("COMMAND - CIRCLE DRAWN");
+                            }
                             else
-                            { errorBox.Text = "Line " + (lineno + 1) + " - Incorrect Parameters for Circle"; }
+                            {
+                                if (!string.IsNullOrWhiteSpace(errorBox.Text))
+                                { errorBox.AppendText("\r\n" + "Line " + (lineno + 1) + " - Incorrect Parameters for Circle"); }
+                                else
+                                { errorBox.Text = "Line " + (lineno + 1) + " - Incorrect Parameters for Circle"; }
+                            }
                         }
                     }
                 }
 
                 else if (command[0].Equals("square") == true)
                 {
-                    long number1 = 0;
-                    bool canConvert = long.TryParse(command[1], out number1);
-                    if (command[1].Equals(inputcmd) == true)
-                    {
-                        //if (!Int32.TryParse(inputval, out positionshape)) ;
-                        positionshape = inputvalparsed;
-                        Canvas.sizes = positionshape;
-                        MyCanvas.DrawSquare(Canvas.sizes);
-                        Refresh();//refresh display
-                        Console.WriteLine("COMMAND - CIRCLE DRAWN");
-                    }
-                    else
-                    if (canConvert == true)
-                    {
-                        if (!Int32.TryParse(command[1], out positionshape)) ; //translate string to int
-
-                        Canvas.sizes = positionshape;
-                        MyCanvas.DrawSquare(Canvas.sizes);
-                        Refresh();//refresh display
-                        Console.WriteLine("COMMAND - SQUARE DRAWN");
-                    }
-                    else
+                    if (param != 2)
                     {
                         if (!string.IsNullOrWhiteSpace(errorBox.Text))
-                        { errorBox.AppendText("\r\n" + "Line " + (lineno + 1) + " - Incorrect Parameters for Square"); }
+                        { errorBox.AppendText("\r\n" + "Line " + (lineno + 1) + " - Incorrect Parameters for square command"); }
                         else
-                        { errorBox.Text = "Line " + (lineno + 1) + " - Incorrect Parameters for Square"; }
+                        { errorBox.Text = "Line " + (lineno + 1) + " - Incorrect Parameters for square command"; }
                     }
-                
+                    else
+                    {
+                        long number1 = 0;
+                        bool canConvert = long.TryParse(command[1], out number1);
+                        if (command[1].Equals(inputcmd) == true)
+                        {
+                            //if (!Int32.TryParse(inputval, out positionshape)) ;
+                            positionshape = inputvalparsed;
+                            Canvas.sizes = positionshape;
+                            MyCanvas.DrawSquare(Canvas.sizes);
+                            Refresh();//refresh display
+                            Console.WriteLine("COMMAND - CIRCLE DRAWN");
+                        }
+                        else
+                        if (canConvert == true)
+                        {
+                            if (!Int32.TryParse(command[1], out positionshape)) ; //translate string to int
 
+                            Canvas.sizes = positionshape;
+                            MyCanvas.DrawSquare(Canvas.sizes);
+                            Refresh();//refresh display
+                            Console.WriteLine("COMMAND - SQUARE DRAWN");
+                        }
+                        else
+                        {
+                            if (!string.IsNullOrWhiteSpace(errorBox.Text))
+                            { errorBox.AppendText("\r\n" + "Line " + (lineno + 1) + " - Incorrect Parameters for Square"); }
+                            else
+                            { errorBox.Text = "Line " + (lineno + 1) + " - Incorrect Parameters for Square"; }
+                        }
+                    }
                 }
 
-                else if (command[0].Equals("rectangle") == true) //what happens if draw rectangle command is used
+                else if (command[0].Equals("rectangle") == true || command[0].Equals("rect") == true) //what happens if draw rectangle command is used
                 {
-                    if(command[1].Equals(inputcmd) == true)
+                    if (param != 3)
                     {
-                        command[1] = inputval;
+                        if (!string.IsNullOrWhiteSpace(errorBox.Text))
+                        { errorBox.AppendText("\r\n" + "Line " + (lineno + 1) + " - Incorrect Parameters for rectangle command"); }
+                        else
+                        { errorBox.Text = "Line " + (lineno + 1) + " - Incorrect Parameters for rectangle command"; }
                     }
-                    if(command[2].Equals(inputcmd) == true)
+                    else
                     {
-                        command[2] = inputval;
+                        if (command[1].Equals(inputcmd) == true)
+                        {
+                            command[1] = inputval;
+                        }
+                        if (command[2].Equals(inputcmd) == true)
+                        {
+                            command[2] = inputval;
+                        }
+
+
+                        if (!Int32.TryParse(command[1], out positionx)) ; //translate string to int
+                        if (!Int32.TryParse(command[2], out positiony)) ;
+
+                        Canvas.sizerx = positionx;
+                        Canvas.sizery = positiony;
+                        MyCanvas.DrawRect(Canvas.sizerx, Canvas.sizery);
+                        Refresh();//refresh display
+                        Console.WriteLine("COMMAND - RECTANGLE DRAWN");
                     }
-
-
-                    if (!Int32.TryParse(command[1], out positionx)) ; //translate string to int
-                    if (!Int32.TryParse(command[2], out positiony)) ;
-
-                    Canvas.sizerx = positionx;
-                    Canvas.sizery = positiony;
-                    MyCanvas.DrawRect(Canvas.sizerx, Canvas.sizery);
-                    Refresh();//refresh display
-                    Console.WriteLine("COMMAND - RECTANGLE DRAWN");
-
                 }
 
                 else if (command[0].Equals("colour") == true) //changes colour of the pen
@@ -338,64 +395,122 @@ namespace Learn_to_Program___ASE
                             errorBox.Text = "Line " + (lineno + 1) + " - Invalid Pen Colour";
                         }
                     }
-                }                
+                }
                 else if (command[0].Equals("while") == true)
                 {
                     loopline = lineno;
-                    loop++;
-                    lineno++;
+                    if(param !=4)
+                    {
+
+                    }
+                    else
+                    {
+                        if(command[1].Equals(inputcmd) == true)
+                        {
+                            if(command[2].Equals("<"))
+                            {
+                                whilecmd = '<';
+                                if (!Int32.TryParse(command[3], out whileint));
+                                
+                                                                
+                            }
+                            else if(command[2].Equals(">")) 
+                            {
+                                whilecmd = '>';
+                                if (!Int32.TryParse(command[3], out whileint));
+                            }
+                            else
+                            {
+                                if (!string.IsNullOrWhiteSpace(errorBox.Text))
+                                {
+                                    errorBox.AppendText("\r\n" + "Line " + (lineno + 1) + " - Invalid Command");
+                                }
+                                else
+                                {
+                                    errorBox.Text = "Line " + (lineno + 1) + " - Invalid Command";
+                                }
+                            }
+                        }
+                        else 
+                        {
+                            if (!string.IsNullOrWhiteSpace(errorBox.Text))
+                            {
+                                errorBox.AppendText("\r\n" + "Line " + (lineno + 1) + " - Invalid Command");
+                            }
+                            else
+                            {
+                                errorBox.Text = "Line " + (lineno + 1) + " - Invalid Command";
+                            }
+                        }
+                    }                 
+
                 }
 
                 else if (command[0].Equals("endwhile") == true)
                 {
-                    if (loop == 1)
+                    if (whilecmd.Equals('<') == true)
                     {
-                        lineno = loopline;
-                    }
-                    else
-                        loop = 0;
-                        lineno++;
-                        
+                        if (!Int32.TryParse(inputval, out inputvalparsed));
+                        if (inputvalparsed < whileint)
+                        {
+                            errorBox.AppendText("\r\n" + "loop");
+                            lineno = loopline;
+                        }
+                    }                   
+
                 }
+
+                //VARIABLES
 
                 else if (command[1].Equals("=") == true)
                 {
                     Console.WriteLine("equals");
-                    if(command.Length.Equals(3))
+                    if (command.Length.Equals(3))
                     {
                         inputcmd = command[0];
                         inputval = command[2];
-                        if (!Int32.TryParse(inputval, out inputvalparsed));
-
-                            //errorBox.AppendText("\r\n" + inputval + "1");
-
+                        if (!Int32.TryParse(inputval, out inputvalparsed)) ;
                     }
-                    else if(command.Length.Equals(5))
+                    else if (command.Length.Equals(5))
                     {
-                        if(command[2].Equals(inputcmd))
+                        if (command[2].Equals(inputcmd))
                         {
-                            //errorBox.AppendText("\r\n" + inputval + " 2");
                             if (command[3].Equals("+"))
                             {
                                 int parsed = 0;
-                                //errorBox.AppendText("\r\n" + parsed + " parced");
-                                if (!Int32.TryParse(command[4], out parsed));
-                                    //errorBox.AppendText("\r\n" + parsed + " parced");                                
-
+                                if (!Int32.TryParse(command[4], out parsed)) ;
                                 inputvalparsed = parsed + inputvalparsed;
-                                //errorBox.AppendText("\r\n" + inputvalparsed + " 3") ;
-
+                                errorBox.AppendText("\r\n" + "add radius");
                             }
                             else if (command[3].Equals("-"))
                             {
-                                int parsed = 0;                                
-                                //errorBox.AppendText("\r\n" + parsed + " parced");
+                                int parsed = 0;
                                 if (!Int32.TryParse(command[4], out parsed)) ;
-                                //errorBox.AppendText("\r\n" + parsed + " parced");                                
-
                                 inputvalparsed = parsed - inputvalparsed;
-                                //errorBox.AppendText("\r\n" + inputvalparsed + " 3") ;
-
+                            }
+                            else if (command[3].Equals("/"))
+                            {
+                                int parsed = 0;
+                                if (!Int32.TryParse(command[4], out parsed)) ;
+                                inputvalparsed = parsed / inputvalparsed;
+                            }
+                            else if (command[3].Equals("*"))
+                            {
+                                int parsed = 0;
+                                if (!Int32.TryParse(command[4], out parsed)) ;
+                                inputvalparsed = parsed * inputvalparsed;
+                            }
+                            else
+                            {
+                                if (!string.IsNullOrWhiteSpace(errorBox.Text))
+                                {
+                                    errorBox.AppendText("\r\n" + "Line " + (lineno + 1) + " - Invalid Command");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("While loop broken");
+                                    errorBox.Text = "Line " + (lineno + 1) + " - Invalid Command";
+                                }
                             }
                         }
                     }
@@ -414,12 +529,12 @@ namespace Learn_to_Program___ASE
 
 
                     }
-                    
+
 
                 }
 
                 else
-                {     
+                {
                     if (!string.IsNullOrWhiteSpace(errorBox.Text))
                     {
                         Console.WriteLine("While loop broken");
@@ -430,13 +545,9 @@ namespace Learn_to_Program___ASE
                         Console.WriteLine("While loop broken");
                         errorBox.Text = "Line " + (lineno + 1) + " - Invalid Command";
                     }
-
                     //break;
                 }
-
             }
-
-
         }
 
         private void displaywindow_Paint(object sender, PaintEventArgs e)
@@ -451,8 +562,6 @@ namespace Learn_to_Program___ASE
             Canvas.yPos = 0;
             Canvas.P1.Color = System.Drawing.Color.Black;
             Console.WriteLine("Pen Reset");
-
-
         }
 
         private void SaveFileDialogSample()
@@ -474,12 +583,7 @@ namespace Learn_to_Program___ASE
                 OutputBitmap.Save(saveImage1.FileName);
 
             //string path = saveImage1.FileName;
-
-
         }
-
-
-
         private void codeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFile1 = new SaveFileDialog();
@@ -491,7 +595,6 @@ namespace Learn_to_Program___ASE
 
             if (saveFile1.ShowDialog() == DialogResult.OK)
                 commandbox.SaveFile(saveFile1.FileName, RichTextBoxStreamType.PlainText);
-
         }
 
         private void loadToolStripMenuItem1_Click(object sender, EventArgs e)
