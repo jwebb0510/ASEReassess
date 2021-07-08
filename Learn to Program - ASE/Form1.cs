@@ -414,7 +414,90 @@ namespace Learn_to_Program___ASE
 
         private void syntaxbtn_Click(object sender, EventArgs e)
         {
-                 
+            int lineno = 0;
+            int loopline = 0;
+            int loopamount = 1;
+            int param = 0;
+            string commandinit = commandbox.Text.Trim().ToLower();
+            string[] lines = commandinit.Split('\n');
+            errorBox.Text = "";
+
+            for (lineno = 0; lineno < lines.Length; lineno++)
+            {
+                string[] command = lines[lineno].Split(' ', ',');
+
+                if (command[0].Equals("moveto") == true || command[0].Equals("drawto") == true || command[0].Equals("square") == true 
+                    || command[0].Equals("circle") == true || command[0].Equals("rectangle") == true || command[0].Equals("colour") == true 
+                    || command[0].Equals("loop") == true || command[0].Equals("end") == true) //checks through all known commands
+                {
+                    if (command[0].Equals("moveto") == true || command[0].Equals("drawto") == true || command[0].Equals("rectangle") == true)
+                    {
+                        long number1 = 0;
+                        bool canConvert = long.TryParse(command[1], out number1);
+                        if (canConvert == true) { }
+                        else if (!string.IsNullOrWhiteSpace(errorBox.Text))
+                        { errorBox.AppendText("\r\n" + "Line " + (lineno + 1) + " - Incorrect Parameters"); }
+                        else
+                        { errorBox.Text = "Line " + (lineno + 1) + " - Incorrect Parameters"; }
+                        canConvert = long.TryParse(command[2], out number1);
+                        if (canConvert == true) { }
+                        else if (!string.IsNullOrWhiteSpace(errorBox.Text))
+                        { errorBox.AppendText("\r\n" + "Line " + (lineno + 1) + " - Incorrect Parameters"); }
+                        else
+                        { errorBox.Text = "Line " + (lineno + 1) + " - Incorrect Parameters"; }
+                    }
+                    else if (command[0].Equals("circle") == true || command[0].Equals("square") == true)
+                    {
+                        long number1 = 0;
+                        bool canConvert = long.TryParse(command[1], out number1);
+                        if (canConvert == true) { }
+                        else {
+                            if (!string.IsNullOrWhiteSpace(errorBox.Text))
+                            {errorBox.AppendText("\r\n" + "Line " + (lineno + 1) + " - Incorrect Parameters");}
+                            else
+                            { errorBox.Text = "Line " + (lineno + 1) + " - Incorrect Parameters"; }
+                        }
+                    }
+                    else if (command[0].Equals("colour") == true)
+                    {
+                        if (command[1].Equals("red") == true || command[1].Equals("blue") == true || command[1].Equals("black") == true || command[1].Equals("green") == true ||
+                            command[1].Equals("yellow") == true )
+                        {
+
+                        }
+                        else if (command[1].Equals(null) == true)
+                        {
+                            if (!string.IsNullOrWhiteSpace(errorBox.Text))
+                            {errorBox.AppendText("\r\n" + "Pen Colour not Defined on line " + (lineno + 1));}
+                            else
+                            {errorBox.Text = "Pen Colour not Defined on line " + (lineno + 1);}
+                        }
+                        else
+                        {
+                            if (!string.IsNullOrWhiteSpace(errorBox.Text))
+                            {errorBox.AppendText("\r\n" + "Line " + (lineno + 1) + " - Invalid Pen Colour");}
+                            else
+                            {errorBox.Text = "Line " + (lineno + 1) + " - Invalid Pen Colour";}
+
+                        }
+                    }
+                }
+                else
+                {
+                    //Console.WriteLine("While loop broken");
+
+                    if (!string.IsNullOrWhiteSpace(errorBox.Text))
+                    {
+                        errorBox.AppendText("\r\n" + "Line " + (lineno + 1) + " - Invalid Command");
+                    }
+                    else
+                    {
+                        errorBox.Text = "Line " + (lineno + 1) + " - Invalid Command";
+                    }
+                    //break;
+
+                }               
+            }     
         }
     }
 }
