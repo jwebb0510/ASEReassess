@@ -159,6 +159,7 @@ namespace Learn_to_Program___ASE
             int loop = 0;
             string inputcmd = "poo";
             string inputval = "poo";
+            int inputvalparsed = 0;
             string commandinit = commandbox.Text.Trim().ToLower();
             string[] lines = commandinit.Split('\n');
             errorBox.Text = "";
@@ -200,7 +201,8 @@ namespace Learn_to_Program___ASE
                 {
                     if (command[1].Equals(inputcmd) == true)
                     {
-                        if (!Int32.TryParse(inputval, out positionshape)) ;
+                        //if (!Int32.TryParse(inputval, out positionshape)) ;
+                        positionshape = inputvalparsed;
                         Canvas.sizes = positionshape;
                         MyCanvas.DrawCircle(Canvas.sizes);
                         Refresh();//refresh display
@@ -235,7 +237,8 @@ namespace Learn_to_Program___ASE
                     bool canConvert = long.TryParse(command[1], out number1);
                     if (command[1].Equals(inputcmd) == true)
                     {
-                        if (!Int32.TryParse(inputval, out positionshape)) ;
+                        //if (!Int32.TryParse(inputval, out positionshape)) ;
+                        positionshape = inputvalparsed;
                         Canvas.sizes = positionshape;
                         MyCanvas.DrawSquare(Canvas.sizes);
                         Refresh();//refresh display
@@ -336,14 +339,14 @@ namespace Learn_to_Program___ASE
                         }
                     }
                 }                
-                else if (command[0].Equals("loop") == true)
+                else if (command[0].Equals("while") == true)
                 {
                     loopline = lineno;
                     loop++;
                     lineno++;
                 }
 
-                else if (command[0].Equals("end") == true)
+                else if (command[0].Equals("endwhile") == true)
                 {
                     if (loop == 1)
                     {
@@ -362,7 +365,39 @@ namespace Learn_to_Program___ASE
                     {
                         inputcmd = command[0];
                         inputval = command[2];
+                        if (!Int32.TryParse(inputval, out inputvalparsed));
 
+                            //errorBox.AppendText("\r\n" + inputval + "1");
+
+                    }
+                    else if(command.Length.Equals(5))
+                    {
+                        if(command[2].Equals(inputcmd))
+                        {
+                            //errorBox.AppendText("\r\n" + inputval + " 2");
+                            if (command[3].Equals("+"))
+                            {
+                                int parsed = 0;
+                                //errorBox.AppendText("\r\n" + parsed + " parced");
+                                if (!Int32.TryParse(command[4], out parsed));
+                                    //errorBox.AppendText("\r\n" + parsed + " parced");                                
+
+                                inputvalparsed = parsed + inputvalparsed;
+                                //errorBox.AppendText("\r\n" + inputvalparsed + " 3") ;
+
+                            }
+                            else if (command[3].Equals("-"))
+                            {
+                                int parsed = 0;                                
+                                //errorBox.AppendText("\r\n" + parsed + " parced");
+                                if (!Int32.TryParse(command[4], out parsed)) ;
+                                //errorBox.AppendText("\r\n" + parsed + " parced");                                
+
+                                inputvalparsed = parsed - inputvalparsed;
+                                //errorBox.AppendText("\r\n" + inputvalparsed + " 3") ;
+
+                            }
+                        }
                     }
                     else
                     {
