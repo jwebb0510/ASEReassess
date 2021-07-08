@@ -387,17 +387,29 @@ namespace Learn_to_Program___ASE
 
         private void imageToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            
+            MyCanvas.Clear(Canvas.sizec);
+            Canvas.xPos = 0;
+            Canvas.yPos = 0;
+            Canvas.P1.Color = System.Drawing.Color.Black;
+            Refresh();//refresh display
         }
 
         private void commandsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            commandbox.Text = ""; //clears text from command line
+            commandline.Text = ""; //clears text from command line
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            commandbox.Text = ""; //clears text from command box
+            commandline.Text = ""; //clears text from command line
+            errorBox.Text = ""; //clears text from syntax box
+            MyCanvas.Clear(Canvas.sizec);
+            Canvas.xPos = 0;
+            Canvas.yPos = 0;
+            Canvas.P1.Color = System.Drawing.Color.Black;
+            Refresh();//refresh display
         }
 
         private void syntaxbtn_Click(object sender, EventArgs e)
