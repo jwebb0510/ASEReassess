@@ -110,8 +110,36 @@ namespace Learn_to_Program___ASE
                     Refresh();//refresh display
                     Console.WriteLine("COMMAND - CIRCLE DRAWN");
                 }
-                
-                
+                else if (Commandsplit[0].Equals("colour") == true || Commandsplit[0].Equals("col") == true || Commandsplit[0].Equals("color") == true) //changes colour of the pen
+                {
+                    if (Commandsplit[1].Equals("red") == true || Commandsplit[1].Equals("r") == true)
+                    {
+                        Canvas.P1.Color = System.Drawing.Color.Red;
+                        Console.WriteLine("COMMAND - RED PEN");
+                    }
+                    else if (Commandsplit[1].Equals("blue") == true || Commandsplit[1].Equals("blu") == true)
+                    {
+                        Canvas.P1.Color = System.Drawing.Color.Blue;
+                        Console.WriteLine("COMMAND - BLUE PEN");
+                    }
+                    else if (Commandsplit[1].Equals("black") == true || Commandsplit[1].Equals("bla") == true)
+                    {
+                        Canvas.P1.Color = System.Drawing.Color.Black;
+                        Console.WriteLine("COMMAND - BLACK PEN");
+                    }
+                    else if (Commandsplit[1].Equals("green") == true || Commandsplit[1].Equals("g") == true)
+                    {
+                        Canvas.P1.Color = System.Drawing.Color.Green;
+                        Console.WriteLine("COMMAND - GREEN PEN");
+                    }
+                    else if (Commandsplit[1].Equals("yellow") == true || Commandsplit[1].Equals("yel") == true || Commandsplit[1].Equals("y") == true)
+                    {
+                        Canvas.P1.Color = System.Drawing.Color.Yellow;
+                        Console.WriteLine("COMMAND - YELLOW PEN");
+                    }
+
+
+                }
 
                 commandline.Text = ""; //clears text from command line
                 Console.WriteLine("CONSOLE CLEARED");
@@ -143,7 +171,7 @@ namespace Learn_to_Program___ASE
                 string[] command = lines[lineno].Split(' ', ',');
                 int param = command.Length;
 
-                if (command[0].Equals("moveto") == true)
+                if (command[0].Equals("moveto") == true )
                 {
 
                     if (!Int32.TryParse(command[1], out positionx)) ; //translate string to int                    
